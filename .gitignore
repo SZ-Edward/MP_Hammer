@@ -1,0 +1,8 @@
+README.md
+*.pyc
+requirements.txt
+.python-version
+MP_Hammer.ini
+config.py
+runserver
+wsgi.py
