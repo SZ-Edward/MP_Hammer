@@ -73,12 +73,13 @@ class GeoMsg(Message):
 class Event(object):
     """
     微信事件推送Model
-    关注/取消关注事件()     event=subscribe(关注)/unsubscribe(取消关注)
-    扫描带参数二维码事件()    event=
-    上报地理位置事件()    event=
-    自定义菜单事件()     event=
-    点击菜单拉取消息时的事件推送()    event=
-    点击菜单跳转链接时的事件推送()  event=
+    关注/取消关注事件(SubscribeEvent)             event=subscribe(关注)/unsubscribe(取消关注)
+    TODO:
+    扫描带参数二维码事件(ScanQrCodeEvent)          event=scan
+    上报地理位置事件()              event=location
+    自定义菜单事件()                event=click
+    点击菜单拉取消息时的事件推送()  event=click
+    点击菜单跳转链接时的事件推送()  event=view
     """
     def __init__(self, xml_data):
         self.to_user_name = xml_data.find('ToUserName').text
@@ -91,7 +92,11 @@ class Event(object):
 class SubscribeEvent(Event):
     def __init__(self, xml_data):
         Event.__init__(self, xml_data)
-        self.geo_x = xml_data.find('Location_X').text
-        self.geo_y = xml_data.find('Location_Y').text
-        self.scale = xml_data.find('Scale').text
-        self.label = xml_data.find('Label').text
+        self.followed = True if xml_data.find('Event').text == 'subscribe' else False
+
+
+class ScanQrCodeEvent(Event):
+    def __init__(self, xml_data):
+        Event.__init__(self, xml_data)
+        self.qrscene = xml_data.find('EventKey').text
+        self.ticket = xml_data.find('Ticket').text

@@ -1,3 +1,4 @@
+.gitignore
 README.md
 *.pyc
 requirements.txt
@@ -6,3 +7,4 @@ MP_Hammer.ini
 config.py
 runserver
 wsgi.py
+pyopenssl-master/
