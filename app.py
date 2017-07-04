@@ -58,7 +58,7 @@ def receive_wx_posted_xml():
             print msg_model.content
             if "读诗" in msg_model.content:
                 import random
-                idx = random.randint(0, len(msgt.poems))
+                idx = random.randint(0, len(msgt.poems)-1)
                 reply = msgt.poems[idx]
                 reply = reply.encode('utf-8')
             elif "股 " in msg_model.content:
